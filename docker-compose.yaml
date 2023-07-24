@@ -1,0 +1,30 @@
+version: '3.9'
+
+services:
+  nginx:
+    container_name: nginx1
+    ports:
+      - '80:80'
+      - '443:433'
+    build: ./nginx
+    depends_on:
+      - service1
+      # - service2
+
+  service1:
+    container_name: service1
+    build: ./service1
+    volumes:
+      - ./service1:/app/src/
+      - ./shared:/app/shared
+    env_file:
+      - .env
+
+  # service2:
+  #   container_name: service2
+  #   build: ./service2
+  #   volumes:
+  #     - ./service2:/app/src/
+  #     - ./shared:/app/shared
+  #   env_file:
+  #     - .env
